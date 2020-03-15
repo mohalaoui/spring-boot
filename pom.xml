@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.4.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<groupId>com.springboot.example</groupId>
+	<artifactId>springBootSimple-pom</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+		<google-guava.version>19.0</google-guava.version>
+	</properties>
+	
+	<build>
+		<pluginManagement>
+			 <plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-toolchains-plugin</artifactId>
+					<version>1.1</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>toolchain</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<toolchains>
+							<jdk>
+								<version>1.8</version>
+							</jdk>
+						</toolchains>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+            	<artifactId>jgitflow-maven-plugin</artifactId>
+            	<version>1.0-m5.1</version>
+            	<configuration>
+					<pushFeatures>true</pushFeatures>
+					<!--
+				      Hot Fixes should be pushed to origin as well so that any dev can pick them up
+				    -->
+					<pushHotfixes>true</pushHotfixes>
+					<!--
+				      This allows the CI server (e.g. Jenkins) to automatically push new releases to
+				      origin; you can then either manually deploy them or, if you are doing Continuous
+				      Deployments, auto-deploy them to prod
+				    -->
+					<pushReleases>true</pushReleases>
+					<!-- Enable this to push to origin using SSH keys -->
+					<enableSshAgent>true</enableSshAgent>
+					<!--  Whether to allow SNAPSHOT dependencies. Default is to fail when finding any SNAPSHOT. -->
+					<allowSnapshots>true</allowSnapshots>
+					<!-- Keep your maven submodules at the same version as the parent POM -->
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<flowInitContext>
+						<masterBranchName>master</masterBranchName>
+						<developBranchName>develop</developBranchName>
+						<featureBranchPrefix>feature-</featureBranchPrefix>
+						<releaseBranchPrefix>release-</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+						<versionTagPrefix>iva-</versionTagPrefix>
+					</flowInitContext>
+				</configuration>
+				<dependencies>
+                  <dependency>
+                    <groupId>com.jcraft</groupId>
+                    <artifactId>jsch.agentproxy.jsch</artifactId>
+                    <type>jar</type>
+                    <version>0.0.9</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>com.jcraft</groupId>
+                    <artifactId>jsch</artifactId>
+                    <type>jar</type>
+                    <version>0.1.49</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>com.jcraft</groupId>
+                    <artifactId>jsch.agentproxy.core</artifactId>
+                    <type>jar</type>
+                    <version>0.0.9</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>com.jcraft</groupId>
+                    <artifactId>jsch.agentproxy.usocket-jna</artifactId>
+                    <type>jar</type>
+                    <version>0.0.9</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>net.java.dev.jna</groupId>
+                    <artifactId>jna</artifactId>
+                    <type>jar</type>
+                    <version>4.1.0</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>net.java.dev.jna</groupId>
+                    <artifactId>platform</artifactId>
+                    <type>jar</type>
+                    <version>3.5.2</version>
+                  </dependency>
+                  <dependency>
+                    <groupId>com.jcraft</groupId>
+                    <artifactId>jsch.agentproxy.sshagent</artifactId>
+                    <type>jar</type>
+                    <version>0.0.9</version>
+                  </dependency>
+                </dependencies>
+			</plugin>
+		</plugins>
+	</build>
+	                   
+	
+	
+	
+	<scm>
+		<url>scm:git:ssh://git@github.com/mohalaoui/spring-boot.git</url>
+        <connection>scm:git:ssh://git@github.com/mohalaoui/spring-boot.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/mohalaoui/spring-boot.git</developerConnection>
+	</scm>
+
+	<modules>
+		<module>configServer</module>
+		<module>eurekaServer</module>
+		<module>feignClient</module>
+        <module>produit</module>
+        <module>zuulServer</module>
+        
+    </modules>
+
+	<!--<distributionManagement>
+	    <repository>
+	      <id>moh_releases</id>
+	      <url>http://localhost:9091/repository/moh_releases</url>
+	    </repository>
+	    <snapshotRepository>
+	      <id>moh_snapshots</id>
+	      <url>http://localhost:9091/repository/moh_snapshots</url>
+	    </snapshotRepository>
+	</distributionManagement> -->
+
+</project>
