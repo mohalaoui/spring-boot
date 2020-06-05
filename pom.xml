@@ -123,15 +123,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	                   
-	
-	
-	
-	<scm>
-		<url>scm:git:ssh://git@github.com/mohalaoui/spring-boot.git</url>
-        <connection>scm:git:ssh://git@github.com/mohalaoui/spring-boot.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/mohalaoui/spring-boot.git</developerConnection>
-	</scm>
 
 	<modules>
 		<module>configServer</module>
@@ -141,16 +132,22 @@
         <module>zuulServer</module>
         
     </modules>
-
-	<!--<distributionManagement>
+	
+	<distributionManagement>
 	    <repository>
-	      <id>moh_releases</id>
-	      <url>http://localhost:9091/repository/moh_releases</url>
+	      <id>ihd_releases</id>
+	      <url>http://192.168.5.6:8081/repository/ihd_releases</url>
 	    </repository>
 	    <snapshotRepository>
-	      <id>moh_snapshots</id>
-	      <url>http://localhost:9091/repository/moh_snapshots</url>
+	      <id>ihd_snapshots</id>
+	      <url>http://192.168.5.6:8081/repository/ihd_snapshots</url>
 	    </snapshotRepository>
-	</distributionManagement> -->
+	</distributionManagement>
+	<scm>
+        <url>scm:git:ssh://git@github.com/mohalaoui/spring-boot-api-gateway.git</url>
+        <connection>scm:git:ssh://git@github.com/mohalaoui/spring-boot-api-gateway.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/mohalaoui/spring-boot-api-gateway.git</developerConnection>
+        <tag>HEAD</tag>
+  	</scm>
 
 </project>
