@@ -8,6 +8,6 @@ envVars:
   QA_TESTS_MODULE_PATH: 'produit-testing'
   PROJECT_TRG: 'RPROD'
   JIRA_COMPONENT_NAME: 'RPROD'
-  BUILD_MAIL_RECIPENTS: 'dl_1_00056@bouyguestelecom.fr'
-  RELEASE_MAIL_RECIPENTS: 'dl_1_00056@bouyguestelecom.fr'
+  BUILD_MAIL_RECIPENTS: 'al.med@live.fr'
+  RELEASE_MAIL_RECIPENTS: 'al.med@live.fr'
   
