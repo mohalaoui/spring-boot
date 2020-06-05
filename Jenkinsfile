@@ -58,9 +58,9 @@ pipeline {
 						script{
 						    if(params.SKIP_SONAR == false){
 		    				    echo "Running SonarQube Analysis ..."
-			                    withSonarQubeEnv('swad-sonarqube') {
+			                   // withSonarQubeEnv('swad-sonarqube') {
 			    			    //	sh 'SONAR_USER_HOME=$WORKSPACE/.sonar mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.3.0.603:sonar'
-			    			    }
+			    			    //}
 						    }
 						}
 					}
