@@ -9,9 +9,10 @@ import com.google.common.collect.Lists;
 
 @Service
 public class ProduitServiceImpl implements ProduitService {
-
-	@Override
-	public List<Produit> getAllProduits() {
+	
+	static List<Produit> allProduits; 
+	
+	static {
 		Produit produit1 = new Produit("1", "nom1", 300L);
 		Produit produit2 = new Produit("2", "nom2", 400L);
 		Produit produit3 = new Produit("3", "nom3", 500L);
@@ -19,7 +20,18 @@ public class ProduitServiceImpl implements ProduitService {
 		Produit produit5 = new Produit("5", "nom5", 700L);
 		Produit produit6 = new Produit("6", "nom6", 800L);
 		
-		return Lists.newArrayList(produit1, produit2, produit3, produit4, produit5, produit6);
+		allProduits = Lists.newArrayList(produit1, produit2, produit3, produit4, produit5, produit6);
+	}
+
+	@Override
+	public List<Produit> getAllProduits() {
+		
+		return allProduits;
+	}
+
+	@Override
+	public Produit getProduit(String id) {
+		return allProduits.stream().filter(produit -> id.equalsIgnoreCase(produit.getId())).findFirst().get();
 	}
 
 }

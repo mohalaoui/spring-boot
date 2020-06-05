@@ -7,5 +7,7 @@ import com.example.produit.produit.repository.entity.Produit;
 public interface ProduitService {
 	
 	List<Produit> getAllProduits();
+	
+	Produit getProduit(String id);
 
 }
