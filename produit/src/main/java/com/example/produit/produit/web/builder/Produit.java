@@ -2,19 +2,17 @@ package com.example.produit.produit.web.builder;
 
 public class Produit {
 
-	private String id;
 	private String nom;
 	private Long prix;
-
-	public Produit(String id, String nom, Long prix) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.prix = prix;
+	
+	public Produit() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public String getId() {
-		return id;
+	public Produit(String nom, Long prix) {
+		super();
+		this.nom = nom;
+		this.prix = prix;
 	}
 
 	public String getNom() {
@@ -27,7 +25,6 @@ public class Produit {
 
 	// builder
 	public static class Builder {
-		private String id;
 		private String nom;
 		private Long prix;
 
@@ -36,7 +33,6 @@ public class Produit {
 		}
 
 		Builder withId(String id) {
-			this.id = id;
 			return this;
 		}
 
@@ -51,7 +47,7 @@ public class Produit {
 		}
 
 		public Produit build() {
-			return new Produit(id, nom, prix);
+			return new Produit(nom, prix);
 		}
 
 	}

@@ -14,14 +14,15 @@ public class ProduitRepresentationImpl implements ProduitRepresentation{
 		return new Produit.Builder()
 				.withId(produit.getId())
 				.withNom(produit.getNom())
-				//.withPrix(produit.getPrix())
+				.withPrix(produit.getPrix())
 				.build();
 	}
 
 	@Override
-	public List<Produit> buildListProduitRepresentation(
-			List<com.example.produit.produit.repository.entity.Produit> produitsEntity) {
+	public List<Produit> buildListProduitRepresentation(List<com.example.produit.produit.repository.entity.Produit> produitsEntity) {
+		
 		List<Produit> produitsDomain = Lists.newArrayList();
+		
 		produitsEntity.stream().forEach(produit -> {
 			produitsDomain.add(buildOneProduitRepresentation(produit));
 		});
