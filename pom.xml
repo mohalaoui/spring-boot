@@ -42,13 +42,10 @@
 						</toolchains>
 					</configuration>
 				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
+				<plugin>
 				<groupId>external.atlassian.jgitflow</groupId>
             	<artifactId>jgitflow-maven-plugin</artifactId>
-            	<version>1.0-m5.1</version>
+            	<version>1.0m4.3</version>
             	<configuration>
 					<pushFeatures>true</pushFeatures>
 					<!--
@@ -73,7 +70,7 @@
 						<featureBranchPrefix>feature-</featureBranchPrefix>
 						<releaseBranchPrefix>release-</releaseBranchPrefix>
 						<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
-						<versionTagPrefix>iva-</versionTagPrefix>
+						<versionTagPrefix>springBootSimple-</versionTagPrefix>
 					</flowInitContext>
 				</configuration>
 				<dependencies>
@@ -121,7 +118,8 @@
                   </dependency>
                 </dependencies>
 			</plugin>
-		</plugins>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<modules>
