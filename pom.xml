@@ -73,7 +73,7 @@
 						<versionTagPrefix>springBootSimple-</versionTagPrefix>
 					</flowInitContext>
 				</configuration>
-				<dependencies>
+			<!-- <dependencies>
                   <dependency>
                     <groupId>com.jcraft</groupId>
                     <artifactId>jsch.agentproxy.jsch</artifactId>
@@ -116,7 +116,7 @@
                     <type>jar</type>
                     <version>0.0.9</version>
                   </dependency>
-                </dependencies>
+                </dependencies>  -->
 			</plugin>
 			</plugins>
 		</pluginManagement>
