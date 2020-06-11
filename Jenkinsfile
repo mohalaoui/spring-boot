@@ -11,7 +11,7 @@ pipeline {
         booleanParam name: 'SKIP_ACCEPTANCE_TESTS', defaultValue: false, description: 'Skip acceptance tests ?'
         choice       name: 'ACCEPTANCE_TESTS_ENV' , description: 'Environment where acceptance tests should run', choices: 'dev\nap1\nap2\nap3\nap4\nitg'
         choice       name: 'QA_ENV'               , description: 'QA Environment where released artifacts should be deployed', choices: 'ap1\nap2\nap3\nap4'
-        booleanParam name: 'DRY_RUN'              , defaultValue: false, description: 'Disable release step'
+        booleanParam name: 'DRY_RUN'              , defaultValue: false, description: 'Enable release step'
         booleanParam name: 'SKIP_QA_DEPLOY'       , defaultValue: false, description: 'Skip Q/A deploy stage ?'
         booleanParam name: 'SKIP_SMOKE_TESTS'     , defaultValue: false, description: 'Skip smoke tests ?'
     }
@@ -101,7 +101,7 @@ pipeline {
 			when{ 
 				allOf {
 					branch "develop"
-					expression { !params.DRY_RUN }
+					expression { params.DRY_RUN }
 					expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' } // On ne poursuit que si l'etat courant du build est success
 				} 			
 			}
