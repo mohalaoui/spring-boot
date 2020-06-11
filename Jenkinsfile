@@ -120,12 +120,12 @@ pipeline {
 						}
 
                         // On notifie
-                        def releaseContent = releaseContentBuilder releaseVersion: "${env.RELEASE_VERSION}", env: env, build: currentBuild
-                        mail    replyTo : '${DEFAULT_REPLYTO}', 
-						 		subject : "${env.PROJECT_TRG} : new release ${env.RELEASE_VERSION} is ready to deploy.", 
-						 		to	    : "${env.RELEASE_MAIL_RECIPENTS}", 
-						 		mimeType: 'text/html',
-						 		body    : "${releaseContent}"
+                       // def releaseContent = releaseContentBuilder releaseVersion: "${env.RELEASE_VERSION}", env: env, build: currentBuild
+                       // mail    replyTo : '${DEFAULT_REPLYTO}', 
+						 //		subject : "${env.PROJECT_TRG} : new release ${env.RELEASE_VERSION} is ready to deploy.", 
+						 //		to	    : "${env.RELEASE_MAIL_RECIPENTS}", 
+						 //		mimeType: 'text/html',
+						//		body    : "${releaseContent}"
 						
 						env.PIPELINE_STATUS = "RELEASED"
 				}

@@ -120,7 +120,11 @@
             <configuration>
                 <installProject>false</installProject>
 			    <verbose>false</verbose>
-			
+			    <fetchRemote>true</fetchRemote>
+                <pushRemote>true</pushRemote>
+                <postReleaseGoals>deploy</postReleaseGoals>
+                <postHotfixGoals>deploy</postHotfixGoals>
+			    
 			    <gitFlowConfig>
 			        <productionBranch>master</productionBranch>
 			        <developmentBranch>develop</developmentBranch>
