@@ -42,27 +42,21 @@
 						</toolchains>
 					</configuration>
 				</plugin>
-				<plugin>
+			<!--	<plugin>
 				<groupId>external.atlassian.jgitflow</groupId>
             	<artifactId>jgitflow-maven-plugin</artifactId>
             	<version>1.0-m5.1</version>
             	<configuration>
 					<pushFeatures>true</pushFeatures>
-					<!--
-				      Hot Fixes should be pushed to origin as well so that any dev can pick them up
-				    -->
+					
 					<pushHotfixes>true</pushHotfixes>
-					<!--
-				      This allows the CI server (e.g. Jenkins) to automatically push new releases to
-				      origin; you can then either manually deploy them or, if you are doing Continuous
-				      Deployments, auto-deploy them to prod
-				    -->
+					
 					<pushReleases>true</pushReleases>
-					<!-- Enable this to push to origin using SSH keys -->
+					
 					<enableSshAgent>true</enableSshAgent>
-					<!--  Whether to allow SNAPSHOT dependencies. Default is to fail when finding any SNAPSHOT. -->
+					
 					<allowSnapshots>true</allowSnapshots>
-					<!-- Keep your maven submodules at the same version as the parent POM -->
+					
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 					<flowInitContext>
 						<masterBranchName>master</masterBranchName>
@@ -73,7 +67,7 @@
 						<versionTagPrefix>springBootSimple-</versionTagPrefix>
 					</flowInitContext>
 				</configuration>
-			<!-- <dependencies>
+			 <dependencies>
                   <dependency>
                     <groupId>com.jcraft</groupId>
                     <artifactId>jsch.agentproxy.jsch</artifactId>
@@ -116,8 +110,29 @@
                     <type>jar</type>
                     <version>0.0.9</version>
                   </dependency>
-                </dependencies>  -->
-			</plugin>
+                </dependencies> 
+			</plugin> -->
+			
+			<plugin>
+            <groupId>com.amashchenko.maven.plugin</groupId>
+            <artifactId>gitflow-maven-plugin</artifactId>
+            <version>1.14.0</version>
+            <configuration>
+                <installProject>false</installProject>
+			    <verbose>false</verbose>
+			
+			    <gitFlowConfig>
+			        <productionBranch>master</productionBranch>
+			        <developmentBranch>develop</developmentBranch>
+			        <featureBranchPrefix>feature-</featureBranchPrefix>
+			        <releaseBranchPrefix>release-</releaseBranchPrefix>
+			        <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+			        <supportBranchPrefix>support-</supportBranchPrefix>
+			        <versionTagPrefix>springBootSimple-</versionTagPrefix>
+			       <!-- <origin>origin</origin> --> 
+			    </gitFlowConfig>
+            </configuration>
+        </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>

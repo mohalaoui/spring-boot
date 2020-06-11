@@ -115,8 +115,8 @@ pipeline {
 						
                         // On declenche la release
 						withMaven(maven: 'm-3.3', mavenSettingsConfig: 'user-maven-settings') {
-						   sh "mvn jgitflow:release-start -DreleaseVersion=${env.RELEASE_VERSION} -DdevelopmentVersion=${env.NEXT_DEV_VERSION}"
-						   sh 'mvn jgitflow:release-finish -Darguments="-Dmaven.test.skip=true"'
+						   sh "mvn gitflow:release-start -DreleaseVersion=${env.RELEASE_VERSION} -DdevelopmentVersion=${env.NEXT_DEV_VERSION}"
+						   sh 'mvn gitflow:release-finish -Darguments="-Dmaven.test.skip=true"'
 						}
 
                         // On notifie
