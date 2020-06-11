@@ -1,0 +1,13 @@
+envVars:
+  MVN_PROJECTS_NAME_PREFIX: 'produit'
+  PROJECT_NAME: 'produit'
+  APP_ARTIFACT_IDS: 
+    - 'produit-provider' 
+  OPS_MVN_MODULE_PATH: 'produit-ops'
+  TESTS_MODULE_PATH: 'produit-acceptance'
+  QA_TESTS_MODULE_PATH: 'produit-testing'
+  PROJECT_TRG: 'RPROD'
+  JIRA_COMPONENT_NAME: 'RPROD'
+  BUILD_MAIL_RECIPENTS: 'al.med@live.fr'
+  RELEASE_MAIL_RECIPENTS: 'al.med@live.fr'
+  

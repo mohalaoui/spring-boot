@@ -6,8 +6,11 @@ public class Produit {
 	private String nom;
 	private Long prix;
 	
+	public Produit() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Produit(String id, String nom, Long prix) {
-		super();
 		this.id = id;
 		this.nom = nom;
 		this.prix = prix;
