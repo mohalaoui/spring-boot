@@ -173,20 +173,17 @@ pipeline {
             junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
         }
 	    failure {
-	        steps{
-		    	script{
-			    	def attachments = [
-					  [
-					    text: 'Failed Pipeline: ${env.APP_ARTIFACT_IDS}',
-					    fallback: 'The pipeline ${env.APP_ARTIFACT_IDS} failed.',
-					    color: '#ff0000'
-					  ]
-					]
-					
-					slackSend(channel: '#jenkins', attachments: attachments)
-		    	}
-	        }
-
+	    	script{
+		    	def attachments = [
+				  [
+				    text: 'Failed Pipeline: ${env.APP_ARTIFACT_IDS}',
+				    fallback: 'The pipeline ${env.APP_ARTIFACT_IDS} failed.',
+				    color: '#ff0000'
+				  ]
+				]
+				
+				slackSend(channel: '#jenkins', attachments: attachments)
+	    	}
 
 	    }
 	}
