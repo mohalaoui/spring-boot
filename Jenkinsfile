@@ -173,15 +173,18 @@ pipeline {
             junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
         }
 	    failure {
-	    	def attachments = [
-			  [
-			    text: 'Failed Pipeline: ${currentBuild.fullDisplayName}',
-			    fallback: 'The pipeline ${currentBuild.fullDisplayName} failed.',
-			    color: '#ff0000'
-			  ]
-			]
-			
-			slackSend(channel: '#jenkins', attachments: attachments)
+	    	script{
+		    	def attachments = [
+				  [
+				    text: 'Failed Pipeline: ${currentBuild.fullDisplayName}',
+				    fallback: 'The pipeline ${currentBuild.fullDisplayName} failed.',
+				    color: '#ff0000'
+				  ]
+				]
+				
+				slackSend(channel: '#jenkins', attachments: attachments)
+	    	}
+
 	    }
 	}
 
