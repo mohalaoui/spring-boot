@@ -39,7 +39,6 @@ pipeline {
 					env.CURRENT_VERSION  = pomModel.version
 					env.CURRENT_POM_ARTIFACT = pomModel.artifactId
 					
-					env.APP_ID = pipelineConf.envVars['APP_ARTIFACT_IDS']
 					env.APPS_TO_DEPLOY = pipelineConf.envVars['APP_ARTIFACT_IDS'].collect{ '{\"a\":\"' + it + '\"}' }.join(', ')
 					env.PIPELINE_STATUS = "SETUP"
 					sh 'env'
@@ -129,9 +128,9 @@ pipeline {
 						//		body    : "${releaseContent}"
 						def attachments = [
 						  [
-						    text: '${env.PROJECT_TRG} : ${env.APP_ID} is ready to deploy.',
-						    fallback: 'The pipeline ${env.APP_ID} SUCCESS.',
-						    color: '#ff0000'
+						    text: '${env.PROJECT_TRG} : ${env.APP_ARTIFACT_IDS} is ready to deploy.',
+						    fallback: 'The pipeline ${env.APP_ARTIFACT_IDS} SUCCESS.',
+						    color: '#09d917'
 						  ]
 						]
 						
@@ -174,17 +173,20 @@ pipeline {
             junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
         }
 	    failure {
-	    	script{
-		    	def attachments = [
-				  [
-				    text: 'Failed Pipeline: ${env.APP_ID}',
-				    fallback: 'The pipeline ${env.APP_ID} failed.',
-				    color: '#ff0000'
-				  ]
-				]
-				
-				slackSend(channel: '#jenkins', attachments: attachments)
-	    	}
+	        steps{
+		    	script{
+			    	def attachments = [
+					  [
+					    text: 'Failed Pipeline: ${env.APP_ARTIFACT_IDS}',
+					    fallback: 'The pipeline ${env.APP_ARTIFACT_IDS} failed.',
+					    color: '#ff0000'
+					  ]
+					]
+					
+					slackSend(channel: '#jenkins', attachments: attachments)
+		    	}
+	        }
+
 
 	    }
 	}
