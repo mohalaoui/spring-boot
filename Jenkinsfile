@@ -128,8 +128,8 @@ pipeline {
 						//		body    : "${releaseContent}"
 						def attachments = [
 						  [
-						    text: '${env.PROJECT_TRG} : ${env.APP_ARTIFACT_IDS} is ready to deploy.',
-						    fallback: 'The pipeline ${env.APP_ARTIFACT_IDS} SUCCESS.',
+						    text: "${env.PROJECT_TRG} : ${env.APP_ARTIFACT_IDS} is ready to deploy.",
+						    fallback: "The pipeline ${env.APP_ARTIFACT_IDS} SUCCESS.",
 						    color: '#09d917'
 						  ]
 						]
@@ -176,8 +176,8 @@ pipeline {
 	    	script{
 		    	def attachments = [
 				  [
-				    text: 'Failed Pipeline: ${env.APP_ARTIFACT_IDS}',
-				    fallback: 'The pipeline ${env.APP_ARTIFACT_IDS} failed.',
+				    text: "Failed Pipeline: ${env.APP_ARTIFACT_IDS}",
+				    fallback: "The pipeline ${env.APP_ARTIFACT_IDS} failed.",
 				    color: '#ff0000'
 				  ]
 				]
