@@ -126,6 +126,15 @@ pipeline {
 						 //		to	    : "${env.RELEASE_MAIL_RECIPENTS}", 
 						 //		mimeType: 'text/html',
 						//		body    : "${releaseContent}"
+						def attachments = [
+						  [
+						    text: '${env.PROJECT_TRG} : new release ${env.RELEASE_VERSION} is ready to deploy.',
+						    fallback: 'The pipeline ${currentBuild.fullDisplayName} SUCCESS.',
+						    color: '#ff0000'
+						  ]
+						]
+						
+						slackSend(channel: '#jenkins', attachments: attachments)
 						
 						env.PIPELINE_STATUS = "RELEASED"
 				}
@@ -164,9 +173,15 @@ pipeline {
             junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
         }
 	    failure {
-		    mail to: "${env.BUILD_MAIL_RECIPENTS}",
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "The pipeline ${currentBuild.fullDisplayName} failed."
+	    	def attachments = [
+			  [
+			    text: 'Failed Pipeline: ${currentBuild.fullDisplayName}',
+			    fallback: 'The pipeline ${currentBuild.fullDisplayName} failed.',
+			    color: '#ff0000'
+			  ]
+			]
+			
+			slackSend(channel: '#jenkins', attachments: attachments)
 	    }
 	}
 
