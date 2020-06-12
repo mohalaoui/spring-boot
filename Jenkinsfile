@@ -39,6 +39,7 @@ pipeline {
 					env.CURRENT_VERSION  = pomModel.version
 					env.CURRENT_POM_ARTIFACT = pomModel.artifactId
 					
+					env.APP_ID = pipelineConf.envVars['APP_ARTIFACT_IDS']
 					env.APPS_TO_DEPLOY = pipelineConf.envVars['APP_ARTIFACT_IDS'].collect{ '{\"a\":\"' + it + '\"}' }.join(', ')
 					env.PIPELINE_STATUS = "SETUP"
 					sh 'env'
@@ -128,8 +129,8 @@ pipeline {
 						//		body    : "${releaseContent}"
 						def attachments = [
 						  [
-						    text: '${env.PROJECT_TRG} : new release ${env.RELEASE_VERSION} is ready to deploy.',
-						    fallback: 'The pipeline ${currentBuild.fullDisplayName} SUCCESS.',
+						    text: '${env.PROJECT_TRG} : ${env.APP_ID} is ready to deploy.',
+						    fallback: 'The pipeline ${env.APP_ID} SUCCESS.',
 						    color: '#ff0000'
 						  ]
 						]
@@ -176,8 +177,8 @@ pipeline {
 	    	script{
 		    	def attachments = [
 				  [
-				    text: 'Failed Pipeline: ${currentBuild.fullDisplayName}',
-				    fallback: 'The pipeline ${currentBuild.fullDisplayName} failed.',
+				    text: 'Failed Pipeline: ${env.APP_ID}',
+				    fallback: 'The pipeline ${env.APP_ID} failed.',
 				    color: '#ff0000'
 				  ]
 				]
