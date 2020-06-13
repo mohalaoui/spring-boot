@@ -36,8 +36,8 @@
   maven_artifact:
     group_id: com.example.eureka
     artifact_id: eurekaServer
-    repository_url: {{ nexus_url }}
-    version: {{ version_to_deploy }}
+    repository_url: "{{ nexus_url }}"
+    version: "{{ version_to_deploy }}"
     dest: /home/vagrant/r_eureka/app/eurekaServer.jar
     mode: 0755
 
@@ -46,7 +46,7 @@
 
 - name: wait for instance
   uri:
-    url: {{ eureka.host }}
+    url: "{{ eureka.host }}"
     status_code: 200
   register: result
   until: result.status == 200
