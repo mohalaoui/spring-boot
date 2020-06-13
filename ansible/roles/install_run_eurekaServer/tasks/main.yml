@@ -1,11 +1,12 @@
 
-- name: create main directories
+- name: create config directories
   file:
     dest: /home/vagrant/r_eureka/config/
     mode: 0775
     recurse: yes
     state: directory
-  
+
+- name: create app directories
   file:
     dest: /home/vagrant/r_eureka/app/
     mode: 0775
@@ -14,11 +15,12 @@
 
 - name: insert config file
   template:
-    src: /eureka/application.properties.j2
+    src: eureka/application.properties.j2
     dest: /home/vagrant/r_eureka/config/application.properties
     mode: 0755
     
-- maven_artifact:
+- name: install-deploy jar
+  maven_artifact:
     group_id: com.company
     artifact_id: eurekaServer
     repository_url: 'http://192.168.5.6:8081/repository/ihd_snapshots/'
