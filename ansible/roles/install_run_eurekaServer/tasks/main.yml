@@ -51,5 +51,5 @@
   register: result
   until: result.status == 200
   retries: 120
-  delay: 1
+  delay: 10
 
