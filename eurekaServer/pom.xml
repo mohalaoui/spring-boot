@@ -12,7 +12,7 @@
 	<artifactId>eurekaServer</artifactId>
 	<name>eurekaServer</name>
 	<description>Demo project for Spring Boot</description>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -49,6 +49,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
