@@ -37,7 +37,7 @@
     group_id: com.example.eureka
     artifact_id: eurekaServer
     repository_url: "{{ nexus_url }}"
-    version: "{{ version_to_deploy }}"
+    version: "{{ eureka.version_to_deploy }}"
     dest: /home/vagrant/r_eureka/app/eurekaServer.jar
     mode: 0755
 
