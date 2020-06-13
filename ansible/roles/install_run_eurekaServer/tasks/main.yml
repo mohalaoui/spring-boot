@@ -18,6 +18,12 @@
     src: eureka/application.properties.j2
     dest: /home/vagrant/r_eureka/config/application.properties
     mode: 0755
+   
+- name: insert logback file
+  template:
+    src: eureka/logback.xml.j2
+    dest: /home/vagrant/r_eureka/config/logback.xml
+    mode: 0755
     
 - name: getting runnig version process
   shell: "ps -ef | grep -v grep | grep -w eurekaServer.jar | awk '{print $2}'"
@@ -42,7 +48,7 @@
     mode: 0755
 
 - name: run eureka jar
-  shell: nohup java -jar /home/vagrant/r_eureka/app/eurekaServer.jar --spring.config.name=application --spring.config.location=file:////home/vagrant/r_eureka/config/ &
+  shell: nohup java -jar /home/vagrant/r_eureka/app/eurekaServer.jar --spring.config.name=application --spring.config.location=file:////home/vagrant/r_eureka/config/ --logging.config=file:////home/vagrant/r_eureka/config/ &
 
 - name: wait for instance
   uri:
