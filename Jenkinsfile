@@ -78,9 +78,9 @@ pipeline {
 			steps{
 				ansiblePlaybook (
 	              colorized: true,
-	              playbook: "playbook.yml",
+	              playbook: "ansible/playbook.yml",
 	              hostKeyChecking: false,
-	              inventory: "inventory.yml"
+	              inventory: "ansible/inventory.yml"
               	)
 
 			}
