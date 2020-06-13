@@ -76,9 +76,13 @@ pipeline {
 				} 
 		    }
 			steps{
-				withMaven(maven: 'm-3.3', mavenSettingsConfig: 'user-maven-settings') {
-					//sh "mvn -f ${env.OPS_MVN_MODULE_PATH}/pom.xml clean install -e -Denv=${env.ACCEPTANCE_TESTS_ENV} -Dactions=init,install,deploy -Dapps='{\"v\":\"${env.CURRENT_VERSION}\",\"apps\":[${env.APPS_TO_DEPLOY}]}'"
-				}
+				ansiblePlaybook (
+	              colorized: true,
+	              playbook: "playbook.yml",
+	              hostKeyChecking: false,
+	              inventory: "inventory.yml"
+              	)
+
 			}
 		}
 
