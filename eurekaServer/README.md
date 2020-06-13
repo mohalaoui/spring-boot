@@ -1,6 +1,6 @@
 # eureka_server
 
-###vm args :
+### vm args :
 
 
 <pre><code> 
