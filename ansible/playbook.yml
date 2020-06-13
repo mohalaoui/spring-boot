@@ -1,5 +1,6 @@
 - name: playbook 1
   become: yes
   hosts: dev
+  remote_user: vagrant
   roles:
   - install_run_eurekaServer
