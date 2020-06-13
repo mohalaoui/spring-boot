@@ -19,25 +19,37 @@
     dest: /home/vagrant/r_eureka/config/application.properties
     mode: 0755
     
+- name: getting runnig version process
+  shell: "ps -ef | grep -v grep | grep -w eurekaServer.jar | awk '{print $2}'"
+  register: running_processes
+
+- name: kill running version
+  shell: kill -9 {{ item }}
+  with_items: "{{ running_processes.stdout_lines }}"
+
+- name: remove  existing jar to avoid idempotence
+  file:
+    state: absent
+    path: /home/vagrant/r_eureka/app/*
+
 - name: install-deploy jar
   maven_artifact:
-    group_id: com.company
+    group_id: com.example.eureka
     artifact_id: eurekaServer
-    repository_url: 'http://192.168.5.6:8081/repository/ihd_snapshots/'
-    username: admin
-    password: admin
-    dest: /home/vagrant/r_eureka/app/eurekaServer*.jar
-    
+    repository_url: {{ nexus_url }}
+    version: {{ version_to_deploy }}
+    dest: /home/vagrant/r_eureka/app/eurekaServer.jar
+    mode: 0755
+
 - name: run eureka jar
-  shell: java -jar /home/vagrant/r_eureka/app/eurekaServer*.jar --spring.config.name=application --spring.config.location=file:////home/vagrant/r_eureka/config
+  shell: nohup java -jar /home/vagrant/r_eureka/app/eurekaServer.jar --spring.config.name=application --spring.config.location=file:////home/vagrant/r_eureka/config/ &
 
-
-#- name: wait for instance
-#  uri:
-#    url: "http://127.0.0.1:8080/"
-#    status_code: 404
-#  register: result
-#  until: result.status == 404
-#  retries: 120
-#  delay: 1
+- name: wait for instance
+  uri:
+    url: {{ eureka.host }}
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 120
+  delay: 1
 
