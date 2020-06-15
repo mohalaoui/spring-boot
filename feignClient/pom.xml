@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.springboot.example</groupId>
-		<artifactId>springBootSimple-pom</artifactId>
+		<artifactId>springBootSimple</artifactId>
 		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	

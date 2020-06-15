@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.springboot.example</groupId>
-		<artifactId>springBootSimple-pom</artifactId>
+		<artifactId>springBootSimple</artifactId>
 		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	
@@ -14,6 +14,29 @@
 	<name>produit</name>
 	<description>Demo project for Spring Boot</description>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		
+		<!-- Need to enable the filtering of the src/test/resources to inject the 
+			random port -->
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
 
 	<dependencies>
 		<dependency>
@@ -87,14 +110,5 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
