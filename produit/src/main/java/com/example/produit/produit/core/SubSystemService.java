@@ -2,11 +2,16 @@ package com.example.produit.produit.core;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.Future;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
 import com.example.produit.produit.audit.Metric;
@@ -15,9 +20,12 @@ import com.example.produit.produit.repository.MetricRepository;
 import com.example.produit.produit.repository.ProduitRepository;
 import com.example.produit.produit.repository.entity.MetricEntity;
 import com.example.produit.produit.repository.entity.Produit;
+import com.mongodb.MongoException;
 
 @Component
 public class SubSystemService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(SubSystemService.class);
 	
 	@Autowired
 	ProduitRepository produitRepository;
@@ -44,11 +52,19 @@ public class SubSystemService {
 		
 	}
 
-	public MetricEntity saveMetric(Metric metric) {
+	@Async("auditExecutor")
+	public Future<MetricEntity> saveMetric(Metric metric) {
 		MetricEntity metricEntity = new MetricEntity();
 		BeanUtils.copyProperties(metric, metricEntity);
-		metricRepository.save(metricEntity);
-		return metricEntity;
+		logger.debug("saving metric to mongodb...");
+		try {
+			metricRepository.save(metricEntity);
+		} catch (MongoException e) {
+			logger.error("failed while saving metric to mongodb...", e);
+			return new AsyncResult<MetricEntity>(null);
+		}
+		return new AsyncResult<MetricEntity>(metricEntity);
 		
 	}
+	
 }
