@@ -2,17 +2,23 @@ package com.example.produit.produit.appContext;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.ThreadPoolExecutor;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import com.example.produit.produit.config.AuditConfigurationProperties;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 @Configuration
-@EnableConfigurationProperties
+@EnableConfigurationProperties(AuditConfigurationProperties.class)
+@EnableAsync
 public class ProduitSpringConfig {
 	
 	@Bean 
@@ -26,5 +32,18 @@ public class ProduitSpringConfig {
 		
 		return mapper;
 	}
+	
+    @Bean(name = "auditExecutor")
+    public TaskExecutor auditExecutor(AuditConfigurationProperties config) {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(config.getExecutorPoolSize());
+        executor.setMaxPoolSize(config.getExecutorMaxPoolSize());
+        executor.setQueueCapacity(config.getQueueCapacity());
+        executor.setKeepAliveSeconds(config.getExecutorKeepAlive());
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
+        executor.setThreadNamePrefix("audit-asyncTask-");
+        executor.initialize();
+        return executor;
+    }
 
 }
