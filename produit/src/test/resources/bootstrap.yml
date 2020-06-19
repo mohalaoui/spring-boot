@@ -1,0 +1,8 @@
+server:  port: 9104
+management:  server:    port: 9114  endpoints:    web:      base-path: /adminspring:  application:    name: produit  cloud:    config:      uri:      - http://localhost:9101/#      username: #      password:   profiles:    active:    - dev# Eureka    eureka:  client:    serviceUrl:      defaultZone: http://localhost:9102/eureka/      # Mongodb    
+mongodb:
+  database-name: produit
+  host: "192.168.5.7"
+  port: 27017
+  password: admin #TODO encrypt password. use Volt ?
+  user-name: almed...---audit: executorPoolSize: 2 executorMaxPoolSize: 10 queueCapacity: 30 executorKeepAlive: 60  

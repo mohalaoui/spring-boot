@@ -4,8 +4,12 @@
   <property name="LOG_PATH" value="C:/Users/almed/log"/>
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
+      <!-- pattern with method name
       <pattern>
         %d{dd-MM-yyyy HH:mm:ss.SSS} %green([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n
+      </pattern> -->
+      <pattern>
+        %d{dd-MM-yyyy HH:mm:ss.SSS} %green([%thread]) %highlight(%-5level) %logger{36} - %msg%n
       </pattern>
     </encoder>
   </appender>
@@ -14,8 +18,12 @@
 
 
     <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+    <!-- pattern with method name
       <Pattern>
         %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
+      </Pattern>  -->  
+      <Pattern>
+        %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
       </Pattern>
     </encoder>
 
@@ -33,6 +41,12 @@
   <logger name="com.example.produit.produit" level="debug" additivity="false">
       <appender-ref ref="CONSOLE" />
       <appender-ref ref="FILE" />
+  </logger>
+  
+  <logger name="metrologie" additivity="false">
+    <level value="INFO"/>
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE" />
   </logger>
 
   <root level="info">
