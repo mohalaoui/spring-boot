@@ -6,7 +6,6 @@ import java.util.concurrent.Future;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,12 +13,13 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
-import com.example.produit.produit.audit.Metric;
 import com.example.produit.produit.audit.aop.Audit;
+import com.example.produit.produit.audit.model.Metric;
 import com.example.produit.produit.repository.MetricRepository;
 import com.example.produit.produit.repository.ProduitRepository;
 import com.example.produit.produit.repository.entity.MetricEntity;
 import com.example.produit.produit.repository.entity.Produit;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoException;
 
 @Component
@@ -33,12 +33,15 @@ public class SubSystemService {
 	@Autowired
 	MetricRepository metricRepository;
 	
+	@Autowired
+	ObjectMapper objectMapper;
+	
 	@Audit(value = "r_get_produit_all")
 	public Page<Produit> getAllProduits(Pageable pageable) {
 		return produitRepository.findAll(pageable);
 	}
 
-	@Audit(value = "r_get_produit")
+	@Audit(value = "r_get_produit_one")
 	public Optional<Produit> getProduit(String id) {
 		return produitRepository.findById(id);	
 	}
@@ -54,12 +57,21 @@ public class SubSystemService {
 
 	@Async("auditExecutor")
 	public Future<MetricEntity> saveMetric(Metric metric) {
-		MetricEntity metricEntity = new MetricEntity();
-		BeanUtils.copyProperties(metric, metricEntity);
-		logger.debug("saving metric to mongodb...");
+		
+		MetricEntity metricEntity = null;
+		
 		try {
+			//dont do depp copy
+			//BeanUtils.copyProperties(metric, metricEntity);
+			metricEntity = objectMapper.convertValue(metric, MetricEntity.class);
+			logger.debug("saving metric to mongodb...");
 			metricRepository.save(metricEntity);
-		} catch (MongoException e) {
+		}
+		catch (IllegalArgumentException e) {
+			logger.error("failed while copying from metricDTO to metricEntity...", e);
+			return new AsyncResult<MetricEntity>(null);
+		}
+		catch (MongoException e) {
 			logger.error("failed while saving metric to mongodb...", e);
 			return new AsyncResult<MetricEntity>(null);
 		}

@@ -5,4 +5,4 @@ mongodb:
   host: "192.168.5.7"
   port: 27017
   password: admin #TODO encrypt password. use Volt ?
-  user-name: almed...---audit: executorPoolSize: 2 executorMaxPoolSize: 10 queueCapacity: 30 executorKeepAlive: 60  
+  user-name: almed...---audit: enable: true executorPoolSize: 2 executorMaxPoolSize: 10 queueCapacity: 30 executorKeepAlive: 60  

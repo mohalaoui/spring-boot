@@ -5,11 +5,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 
- * @author Moalaoui
+ * @author moalaoui
  * 
  */
 @ConfigurationProperties(prefix = "audit")
 public class AuditConfigurationProperties {
+	
+	private boolean enable;
 
 	private boolean local;
 
@@ -20,6 +22,14 @@ public class AuditConfigurationProperties {
 	private int executorKeepAlive;
 
 	private int queueCapacity;
+	
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
 
 	public int getExecutorPoolSize() {
 		return executorPoolSize;

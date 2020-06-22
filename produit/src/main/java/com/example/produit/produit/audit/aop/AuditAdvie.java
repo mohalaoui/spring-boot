@@ -4,47 +4,37 @@ package com.example.produit.produit.audit.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.joda.time.Interval;
 import org.joda.time.LocalDateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.produit.produit.audit.Metric;
-import com.example.produit.produit.core.SubSystemService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.produit.produit.audit.model.Metric;
+import com.example.produit.produit.audit.repository.AuditRepository;
 
 
-@Component
 @Aspect
+@Component
 public class AuditAdvie {
 
-	private static final Logger metroLogger = LoggerFactory.getLogger("metrologie");
-	
+
 	@Autowired
-	ObjectMapper objectMapper;
-	
-	@Autowired
-	SubSystemService subSystemService; 
-	
+	AuditRepository auditRepository;
 	
 	@Around("@annotation(audit)")
 	public Object subSystemMetrologie(ProceedingJoinPoint joinPoint, Audit audit) throws Throwable {
-		// need to set date begin
-		Metric metric =new Metric();
-		
-		long stratTime=System.currentTimeMillis();
+
+		Metric metric =new Metric(); // need to set date begin + statTime
 		Object result = joinPoint.proceed();
-		long endTime=System.currentTimeMillis();
+		Interval interval = new Interval(metric.getStartTime(), System.currentTimeMillis());
+		metric.setResponseTime(interval.toDurationMillis());
 		
 		metric.setName(audit.value());
-		metric.setDescription(joinPoint.getSignature().getName());
+		metric.setOperation(joinPoint.getSignature().getName());
 		metric.setFin(LocalDateTime.now().toDate());
-		metric.setResponseTime(endTime-stratTime);
 		
-		metroLogger.info(objectMapper.writeValueAsString(metric));
 		
-		subSystemService.saveMetric(metric);
+		auditRepository.flush(metric);
 		
 		return result;
 	}

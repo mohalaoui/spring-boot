@@ -11,6 +11,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import com.example.produit.produit.audit.filter.AuditFilter;
 import com.example.produit.produit.config.AuditConfigurationProperties;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +21,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @EnableConfigurationProperties(AuditConfigurationProperties.class)
 @EnableAsync
 public class ProduitSpringConfig {
+	
+	// use this instead of @component to avoid that it will be add automatically
+	// in case we decide to externalize AuditFilter   
+	@Bean
+	public AuditFilter auditFilter(){
+		return new AuditFilter();
+	}
 	
 	@Bean 
 	ObjectMapper objectMapper() {

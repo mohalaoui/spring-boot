@@ -1,41 +1,36 @@
-package com.example.produit.produit.repository.entity;
+package com.example.produit.produit.audit.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.joda.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Document(collection = MetricEntity.COLLECTION_NAME)
-public class MetricEntity implements Serializable {
+public class Metric implements Serializable{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7390478711993946483L;
+	private static final long serialVersionUID = -888442290999236554L;
 
-	public final static String COLLECTION_NAME = "Metric";
-
-	@Field("nom")
 	@JsonProperty("nom")
 	private String name;
 
 	private String operation;
 
-	@Field("duree")
 	@JsonProperty("duree")
 	private Long responseTime;
 
-	@Field("debut")
 	@JsonProperty("debut")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "CET")
 	private Date debut;
 
-	@Field("fin")
 	@JsonProperty("fin")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "CET")
 	private Date fin;
@@ -43,7 +38,6 @@ public class MetricEntity implements Serializable {
 	/**
 	 * The date in timeInMillis
 	 */
-	@Field("timestamp")
 	@JsonProperty("timestamp")
 	private long startTime;
 
@@ -53,17 +47,39 @@ public class MetricEntity implements Serializable {
 
 	private Error error;
 
-	@Field("ctx")
 	@JsonProperty("ctx")
-	private MetricContext context;
+	private MetricContext context = new MetricContext();
 
-	private Map<String, Object> additionalProperties;
+	@JsonIgnore
+	private Map<String, Object> additionalProperties = new HashMap<>();
 
-	public MetricEntity() {
+	public Metric() {
+		this.debut = LocalDateTime.now().toDate();
+		this.startTime = debut.getTime();
 	}
 
-	public void setDebut(Date debut) {
-		this.debut = debut;
+	public MetricContext getContext() {
+		return context;
+	}
+
+	public void setContext(MetricContext context) {
+		this.context = context;
+	}
+
+	public long getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getName() {
@@ -72,6 +88,14 @@ public class MetricEntity implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String operation) {
+		this.operation = operation;
 	}
 
 	public Long getResponseTime() {
@@ -94,22 +118,6 @@ public class MetricEntity implements Serializable {
 		this.fin = fin;
 	}
 
-	public String getOperation() {
-		return operation;
-	}
-
-	public void setOperation(String operation) {
-		this.operation = operation;
-	}
-
-	public long getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(long startTime) {
-		this.startTime = startTime;
-	}
-
 	public String getInstance() {
 		return instance;
 	}
@@ -118,12 +126,9 @@ public class MetricEntity implements Serializable {
 		this.instance = instance;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
+	@JsonIgnore
+	public Error getErrorInstance() {
+		return new Error();
 	}
 
 	public Error getError() {
@@ -134,14 +139,7 @@ public class MetricEntity implements Serializable {
 		this.error = error;
 	}
 
-	public MetricContext getContext() {
-		return context;
-	}
-
-	public void setContext(MetricContext context) {
-		this.context = context;
-	}
-
+	@JsonAnyGetter
 	public Map<String, Object> getAdditionalProperties() {
 		return additionalProperties;
 	}
