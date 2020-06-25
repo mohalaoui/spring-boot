@@ -34,7 +34,7 @@ public class AuditRepository {
 		
 		final ExecutionContext executionContext = ExecutionContextHolder.get();
 		
-		metric.setInstance(instance);
+		metric.setInstance(this.instance);
 		
 		//metric.getAdditionalProperties().put(REQUEST_URI, executionContext.getStringValue(MetricConstants.REQUEST_ID_ATTRIBUTE_NAME));
 		metric.getContext().setRequestId(executionContext.getStringValue(X_REQUEST_ID));
