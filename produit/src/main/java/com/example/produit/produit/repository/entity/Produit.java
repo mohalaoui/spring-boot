@@ -3,8 +3,10 @@ package com.example.produit.produit.repository.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Produit")
+@Document(collection = Produit.COLLECTION_NAME)
 public class Produit {
+	
+	public final static String COLLECTION_NAME = "Produit";
 
 	@Id
 	private String id;

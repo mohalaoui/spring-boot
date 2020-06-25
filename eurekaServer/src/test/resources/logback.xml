@@ -30,7 +30,7 @@
 
   </appender>
 
-  <logger name="com.example.produit.produit" level="debug" additivity="false">
+  <logger name="com.example.eurekaServer" level="debug" additivity="false">
       <appender-ref ref="CONSOLE" />
       <appender-ref ref="FILE" />
   </logger>

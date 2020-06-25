@@ -11,7 +11,7 @@ pipeline {
         booleanParam name: 'SKIP_ACCEPTANCE_TESTS', defaultValue: false, description: 'Skip acceptance tests ?'
         choice       name: 'ACCEPTANCE_TESTS_ENV' , description: 'Environment where acceptance tests should run', choices: 'dev\nap1\nap2\nap3\nap4\nitg'
         choice       name: 'QA_ENV'               , description: 'QA Environment where released artifacts should be deployed', choices: 'ap1\nap2\nap3\nap4'
-        booleanParam name: 'DRY_RUN'              , defaultValue: false, description: 'Disable release step'
+        booleanParam name: 'DRY_RUN'              , defaultValue: false, description: 'Enable release step'
         booleanParam name: 'SKIP_QA_DEPLOY'       , defaultValue: false, description: 'Skip Q/A deploy stage ?'
         booleanParam name: 'SKIP_SMOKE_TESTS'     , defaultValue: false, description: 'Skip smoke tests ?'
     }
@@ -76,9 +76,13 @@ pipeline {
 				} 
 		    }
 			steps{
-				withMaven(maven: 'm-3.3', mavenSettingsConfig: 'user-maven-settings') {
-					//sh "mvn -f ${env.OPS_MVN_MODULE_PATH}/pom.xml clean install -e -Denv=${env.ACCEPTANCE_TESTS_ENV} -Dactions=init,install,deploy -Dapps='{\"v\":\"${env.CURRENT_VERSION}\",\"apps\":[${env.APPS_TO_DEPLOY}]}'"
-				}
+				ansiblePlaybook (
+	              colorized: true,
+	              playbook: "ansible/playbook.yml",
+	              hostKeyChecking: false,
+	              inventory: "ansible/inventory.yml"
+              	)
+
 			}
 		}
 
@@ -101,7 +105,7 @@ pipeline {
 			when{ 
 				allOf {
 					branch "develop"
-					expression { !params.DRY_RUN }
+					expression { params.DRY_RUN }
 					expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' } // On ne poursuit que si l'etat courant du build est success
 				} 			
 			}
@@ -126,6 +130,15 @@ pipeline {
 						 //		to	    : "${env.RELEASE_MAIL_RECIPENTS}", 
 						 //		mimeType: 'text/html',
 						//		body    : "${releaseContent}"
+						def attachments = [
+						  [
+						    text: "${env.PROJECT_TRG} : new release ${env.RELEASE_VERSION} is ready to deploy.",
+						    fallback: "The pipeline ${env.PROJECT_NAME} SUCCESS.",
+						    color: '#09d917'
+						  ]
+						]
+						
+						slackSend(channel: '#jenkins', attachments: attachments)
 						
 						env.PIPELINE_STATUS = "RELEASED"
 				}
@@ -164,9 +177,18 @@ pipeline {
             junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
         }
 	    failure {
-		    mail to: "${env.BUILD_MAIL_RECIPENTS}",
-                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                 body: "The pipeline ${currentBuild.fullDisplayName} failed."
+	    	script{
+		    	def attachments = [
+				  [
+				    text: "Failed Pipeline: ${env.PROJECT_NAME}",
+				    fallback: "The pipeline ${env.PROJECT_NAME} failed.",
+				    color: '#ff0000'
+				  ]
+				]
+				
+				slackSend(channel: '#jenkins', attachments: attachments)
+	    	}
+
 	    }
 	}
 

@@ -10,14 +10,15 @@
 	</parent>
 
 	<groupId>com.springboot.example</groupId>
-	<artifactId>springBootSimple-pom</artifactId>
+	<artifactId>springBootSimple</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
 		<google-guava.version>19.0</google-guava.version>
+		<commons-collections.version>4.4</commons-collections.version>
 	</properties>
 	
 	<build>
@@ -130,7 +131,7 @@
 			        <releaseBranchPrefix>release-</releaseBranchPrefix>
 			        <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
 			        <supportBranchPrefix>support-</supportBranchPrefix>
-			        <versionTagPrefix>springBootSimple-</versionTagPrefix>
+			        <versionTagPrefix>microServiceSimple-</versionTagPrefix>
 			       <!-- <origin>origin</origin> --> 
 			    </gitFlowConfig>
             </configuration>

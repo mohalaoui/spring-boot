@@ -1,0 +1,10 @@
+nexus_url: http://192.168.5.6:8081/repository/ihd_snapshots/
+log_dir: /home/vagrant/LOG_APP
+eureka:
+    name: eureka_server
+    host: http://192.168.5.3:9102/
+    server_port: 9102
+    defaultZone: http://localhost:9102/eureka/
+    registerWithEureka: false
+    fetchRegistry: false
+    version_to_deploy: latest # 1.0.1-SNAPSHOT

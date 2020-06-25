@@ -4,15 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.springboot.example</groupId>
-		<artifactId>springBootSimple-pom</artifactId>
-		<version>1.0.0</version>
+		<artifactId>springBootSimple</artifactId>
+		<version>1.0.1</version>
 	</parent>
 	
 	<groupId>com.example.eureka</groupId>
 	<artifactId>eurekaServer</artifactId>
 	<name>eurekaServer</name>
 	<description>Demo project for Spring Boot</description>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -34,6 +34,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!--logback  -->
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>jul-to-slf4j</artifactId>
+		</dependency>
+		  <dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>log4j-over-slf4j</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -49,6 +62,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>app</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
