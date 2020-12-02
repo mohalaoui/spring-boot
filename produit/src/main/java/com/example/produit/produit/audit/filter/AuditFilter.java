@@ -37,6 +37,12 @@ import com.google.common.base.Splitter;
 
 public class AuditFilter implements Filter{
 	
+	private static final String AUDIT_DISABLE_WARNING = "Audit is disabled. NEVER disable this in a production environment.";
+
+	private static final String CLEANING_EXECUTION_CONTEXT = "cleaning execution context...";
+
+	private static final String ERROR_WHILE_PROCESSING_HTTP_REQUEST = "Error while processing HTTP request";
+
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
@@ -83,13 +89,13 @@ public class AuditFilter implements Filter{
 				chain.doFilter(request, response);
 			}
 		} catch (ServletException se) {
-			logger.error("Error while processing HTTP request", se);
+			logger.error(ERROR_WHILE_PROCESSING_HTTP_REQUEST, se);
 			throw se;
 		} catch (Exception e) {
-			logger.error("Error while processing HTTP request", e);
+			logger.error(ERROR_WHILE_PROCESSING_HTTP_REQUEST, e);
 			throw new ServletException(e);
 		} finally {
-			logger.trace("cleaning execution context...");
+			logger.trace(CLEANING_EXECUTION_CONTEXT);
 			ExecutionContextHolder.cleanup();
 			MDC.clear();
 		}
@@ -163,7 +169,7 @@ public class AuditFilter implements Filter{
 	private boolean isAuditEnabled() {
 		boolean auditable = configuration.isEnable();
 		if (!auditable) {
-			logger.warn("Audit is disabled. NEVER disable this in a production environment.");
+			logger.warn(AUDIT_DISABLE_WARNING);
 		}
 		return auditable;
 	}
