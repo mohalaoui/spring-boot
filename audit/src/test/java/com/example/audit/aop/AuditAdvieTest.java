@@ -46,7 +46,7 @@ public class AuditAdvieTest{
 	
 	
 	@Test
-	public void test() throws Throwable {
+	public void should_flush_metric() throws Throwable {
 		//GIVEN
 		MethodSignature methodSignature = Mockito.mock(MethodSignature.class);
 		when(joinPoint.getSignature()).thenReturn(methodSignature);
