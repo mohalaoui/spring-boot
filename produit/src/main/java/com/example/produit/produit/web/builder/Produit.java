@@ -6,10 +6,10 @@ public class Produit {
 	private String nom;
 	private Long prix;
 
-	public Produit() {
+	private Produit() {
 	}
 
-	public Produit(String id, String nom, Long prix) {
+	private Produit(String id, String nom, Long prix) {
 		this.id = id;
 		this.nom = nom;
 		this.prix = prix;
@@ -36,17 +36,17 @@ public class Produit {
 		public Builder() {
 		}
 
-		Builder withId(String id) {
+		public Builder withId(String id) {
 			this.id = id;
 			return this;
 		}
 
-		Builder withNom(String nom) {
+		public Builder withNom(String nom) {
 			this.nom = nom;
 			return this;
 		}
 
-		Builder withPrix(Long prix) {
+		public Builder withPrix(Long prix) {
 			this.prix = prix;
 			return this;
 		}

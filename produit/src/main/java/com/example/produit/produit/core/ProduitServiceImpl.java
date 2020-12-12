@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.produit.produit.repository.entity.Produit;
+import com.example.produit.produit.repository.entity.ProduitEntity;
 
 /*
  * business logic class
@@ -18,21 +18,21 @@ import com.example.produit.produit.repository.entity.Produit;
 public class ProduitServiceImpl implements ProduitService {
 	
 	@Autowired
-	SubSystemService subSystem;
+	private SubSystemService subSystemService;
 
 	@Override
-	public Page<Produit> getAllProduits(Pageable pageable) {
-		return subSystem.getAllProduits(pageable);
+	public Page<ProduitEntity> getAllProduits(Pageable pageable) {
+		return subSystemService.getAllProduits(pageable);
 	}
 
 	@Override
-	public Optional<Produit> getProduit(String id) {
-		return subSystem.getProduit(id);	
+	public Optional<ProduitEntity> getProduit(String id) {
+		return subSystemService.getProduit(id);	
 	}
 
 	@Override
-	public Produit addProduit(com.example.produit.produit.web.builder.Produit produit) {
-		return subSystem.addProduit(produit);
+	public ProduitEntity addProduit(com.example.produit.produit.web.builder.Produit produit) {
+		return subSystemService.addProduit(produit);
 		
 	}
 

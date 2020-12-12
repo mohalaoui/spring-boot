@@ -36,7 +36,7 @@ public class ProduitControllerImpl {
 		
 		Pageable pageRequest = PageRequest.of(0, config.getLimit());
 		 
-		Page<com.example.produit.produit.repository.entity.Produit> produitsEntity = produitService.getAllProduits(pageRequest);
+		Page<com.example.produit.produit.repository.entity.ProduitEntity> produitsEntity = produitService.getAllProduits(pageRequest);
 		
 		List<Produit> produitsDomain = ProduitRepresentation.buildListProduitRepresentation(produitsEntity.getContent());
 		
@@ -46,7 +46,7 @@ public class ProduitControllerImpl {
 	@GetMapping(value="/produits/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Produit> getProduit (@PathVariable String id) {
 		 
-		com.example.produit.produit.repository.entity.Produit produitEntity = produitService.getProduit(id).get();
+		com.example.produit.produit.repository.entity.ProduitEntity produitEntity = produitService.getProduit(id).get();
 		
 		Produit produitsDomain = ProduitRepresentation.buildOneProduitRepresentation(produitEntity);
 		
@@ -56,7 +56,7 @@ public class ProduitControllerImpl {
 	@PostMapping(value="/produits", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Produit> postProduit (@RequestBody Produit produit) {
 		 
-		com.example.produit.produit.repository.entity.Produit produitEntity = produitService.addProduit(produit);;
+		com.example.produit.produit.repository.entity.ProduitEntity produitEntity = produitService.addProduit(produit);;
 		
 		Produit produitsDomain = ProduitRepresentation.buildOneProduitRepresentation(produitEntity);
 		

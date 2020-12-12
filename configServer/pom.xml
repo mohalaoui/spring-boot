@@ -9,9 +9,7 @@
 		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>com.config.server</groupId>
 	<artifactId>configServer</artifactId>
-	<name>configServer</name>
 	<description>Demo project for Spring Boot</description>
 
 	

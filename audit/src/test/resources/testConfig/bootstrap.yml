@@ -1,0 +1,8 @@
+server:  port: 9104
+#management:#  server:#    port: 9114#  endpoints:#    web:#      base-path: /adminspring:  application:    name: audit  profiles:    active:    - dev  rabbitmq:    host: localhost    port: 15672    username: guest    password: guest    virtual-host: /# Mongodb    
+mongodb:
+  database-name: produit
+  host: "localhost"
+  port: ${mongo.test.port}
+  user-name: almed
+  password:  #TODO encrypt password. use Volt ?...---audit: enable: true executorPoolSize: 2 executorMaxPoolSize: 10 queueCapacity: 30 executorKeepAlive: 60  

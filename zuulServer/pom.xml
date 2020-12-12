@@ -8,9 +8,7 @@
 		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>com.zuul.server</groupId>
 	<artifactId>zuulServer</artifactId>
-	<name>zuulServer</name>
 	<description>Demo project for Spring Boot</description>
 
 	<dependencies>

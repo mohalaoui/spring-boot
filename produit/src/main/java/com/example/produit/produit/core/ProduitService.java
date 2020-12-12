@@ -6,16 +6,16 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.example.produit.produit.repository.entity.Produit;
+import com.example.produit.produit.repository.entity.ProduitEntity;
 
 public interface ProduitService {
 	
 	//List<Produit> getAllProduits();
 	
-	Optional<Produit> getProduit(String id);
+	Optional<ProduitEntity> getProduit(String id);
 	
-	Produit addProduit(com.example.produit.produit.web.builder.Produit produit);
+	ProduitEntity addProduit(com.example.produit.produit.web.builder.Produit produit);
 
-	Page<Produit> getAllProduits(Pageable pageable);
+	Page<ProduitEntity> getAllProduits(Pageable pageable);
 
 }

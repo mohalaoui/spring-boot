@@ -9,9 +9,7 @@
 		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>com.client.feign</groupId>
 	<artifactId>feignClient</artifactId>
-	<name>feignClient</name>
 	<description>Demo project for Spring Boot</description>
 
 	<dependencies>

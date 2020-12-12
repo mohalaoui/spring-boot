@@ -8,9 +8,7 @@
 		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>com.example.eureka</groupId>
 	<artifactId>eurekaServer</artifactId>
-	<name>eurekaServer</name>
 	<description>Demo project for Spring Boot</description>
 	
 	<dependencies>

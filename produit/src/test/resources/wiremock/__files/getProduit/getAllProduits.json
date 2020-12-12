@@ -1,0 +1,13 @@
+[ {
+  "id" : "011187cd-f753-479f-a23e-3bc64c5adeb1",
+  "nom" : "nom1",
+  "prix" : 10000
+}, {
+  "id" : "b29eb6bf-28bd-423e-af8d-ba81e31d50db",
+  "nom" : "nom2",
+  "prix" : 20000
+}, {
+  "id" : "8ecf65bf-50ea-441a-ab0b-cae1e610d9e6",
+  "nom" : "nom2",
+  "prix" : 20000
+} ]

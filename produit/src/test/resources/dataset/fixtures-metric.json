@@ -1,0 +1,13 @@
+{ 
+    "_id" : "03b585fc-34f3-11eb-adc1-0242ac120002", 
+    "operation" : "GET_PRODUITS", 
+    "duree" : 4138, 
+    "debut" : {"$date" : 1497225600000}, 
+    "fin" : {"$date" : 1497225600000}, 
+    "timestamp" : 1592786050663, 
+    "instance" : "eureka-provider_localhost_8080", 
+    "status" : "200", 
+    "ctx" : {
+        "requestId" : "b46b96c2-373d-46c4-8bf5-2498792868ab"
+    }
+}

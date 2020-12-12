@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @RefreshScope
 public class ProduitProperties {
 	
-	private int limit;
+	private Integer limit = 10;
 
-	public int getLimit() {
+	public Integer getLimit() {
 		return limit;
 	}
 
-	public void setLimit(int limit) {
+	public void setLimit(Integer limit) {
 		this.limit = limit;
 	}
 	
